@@ -16,6 +16,15 @@ public class Options {
         }
     }
 
+    public void changeOptions(String text){
+        options.clear();
+        for (Character c : text.toCharArray()){
+            if ((c >= '1') && (c <= '9')){
+                this.addOption(Integer.parseInt(c.toString())-1);
+            }
+        }
+    }
+
     /** Funkcia prida hodnotu value do moznosti policka */
     public void addOption(int value){
         if ((value >= 0) && (value <= 8)){

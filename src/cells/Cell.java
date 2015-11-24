@@ -1,8 +1,10 @@
 package cells;
 
 import grids.Grid;
+import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.control.Label;
 
 /**
  * Created by Zuzka on 23.11.2015.
@@ -11,7 +13,7 @@ public class Cell extends Rectangle {
     private int row;
     private int col;
     private Grid grid;
-    Options options;
+    private Options options;
     private final int size = 40;
     private Color fill;
     private Color outline = Color.BLACK;
@@ -129,5 +131,17 @@ public class Cell extends Rectangle {
      */
     public boolean oneOption() {
         return this.options.oneOption();
+    }
+
+    public Cell getMyInCell(){
+        return null;
+    }
+
+    public Cell getMyOutCell(){
+        return null;
+    }
+
+    public void update(){
+
     }
 }

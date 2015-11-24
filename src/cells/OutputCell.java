@@ -1,22 +1,19 @@
 package cells;
+
 import grids.Grid;
-import javafx.scene.control.*;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.Background;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
-import javax.swing.*;
-import javax.swing.text.NumberFormatter;
-import java.text.NumberFormat;
-
-
 /**
- * Created by Zuzka on 23.11.2015.
+ * Created by Zuzka on 24.11.2015.
  */
-public class InputCell extends Cell {
-    TextField text;
+public class OutputCell extends Cell {
+    Label text;
 
-    public InputCell(Grid grid, int row, int col, Color color, TextField text) {
+    public OutputCell(Grid grid, int row, int col, Color color, Label text) {
         super(grid, row, col, color);
         this.text = text;
         this.setupText();
@@ -31,18 +28,19 @@ public class InputCell extends Cell {
     }
 
     @Override
-    public Cell getMyOutCell(){
-        return this.getGrid().start.outGrid.getXY(this.getRow(), this.getCol());
+    public Cell getMyInCell(){
+        return this.getGrid().start.inGrid.getXY(this.getRow(), this.getCol());
     }
 
     @Override
     public void update(){
-        this.getOptions().changeOptions(this.text.getText());
-        System.out.println(this.getOptions().toString());
+        System.out.println(this.getMyInCell().getOptions().toString());
+        this.setOptions(this.getMyInCell().getOptions());
+        this.text.setText(this.getOptions().toString());
     }
 
     @Override
     public String toString(){
-        return "Input Cell at "+this.getRow()+", "+this.getCol();
+        return "Output Cell at "+this.getRow()+", "+this.getCol();
     }
 }
