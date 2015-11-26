@@ -40,4 +40,12 @@ public abstract class Grid extends GridPane{
     public void setGrid(Cell[][] grid){
         this.grid = grid;
     }
+
+    public void update(){
+        for (Cell[] row : grid){
+            for (Cell cell : row){
+                cell.update();
+            }
+        }
+    }
 }

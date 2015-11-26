@@ -38,11 +38,19 @@ public class InputCell extends Cell {
     @Override
     public void update(){
         this.getOptions().changeOptions(this.text.getText());
-        System.out.println(this.getOptions().toString());
+        //System.out.println(this.getOptions().toString());
     }
 
     @Override
     public String toString(){
         return "Input Cell at "+this.getRow()+", "+this.getCol();
+    }
+
+    public boolean onlyOption(){
+        return this.getOptions().oneOption();
+    }
+
+    public Integer getOnlyOption(){
+        return this.getOptions().getOnlyOption();
     }
 }

@@ -58,10 +58,10 @@ public class Options {
         return options.size() == 1;
     }
 
-    /** Funkcia vrati cislo, ktore musi byt v policku, ak ma policko len jedinu moznost alebo null, ak ich ma viac*/
+    /** Funkcia vrati cislo 1-9, ktore musi byt v policku, ak ma policko len jedinu moznost alebo null, ak ich ma viac*/
     public Integer getOnlyOption(){
         if (this.oneOption()){
-            return options.first();
+            return options.first()+1;
         }
         else{
             return null;

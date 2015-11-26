@@ -45,4 +45,52 @@ public class InputGrid extends Grid  {
     public TextField[][] getTexts(){
         return this.texts;
     }
+
+    public String toFile(boolean withPencilmarks){
+        if (withPencilmarks){
+            return toFileWithPencilmarks();
+        }
+        else{
+            return toFileWithGivens();
+        }
+    }
+
+    private String toFileWithPencilmarks(){
+        //TODO
+        return null;
+    }
+
+    private String toFileWithGivens(){
+        StringBuffer s = new StringBuffer();
+        //typ vypisu
+        s.append("GIVENS\n");
+        for (int i=0; i<9; i++){
+            //horny hruby okraj
+            if (i % 3 == 0){
+                for (int k=0; k<13; k++){
+                    s.append("X");
+                }
+                s.append("\n");
+            }
+            for (int j=0; j<9; j++){
+                if (j % 3 == 0){
+                    s.append("X");
+                }
+                if (grid[i][j].oneOption()){
+                    s.append(grid[i][j].getOnlyOption());
+                }
+                else{
+                    s.append(" ");
+                }
+            }
+            s.append("X");
+            s.append("\n");
+        }
+        for (int k=0; k<13; k++){
+            s.append("X");
+        }
+        return new String(s);
+    }
+
+
 }
