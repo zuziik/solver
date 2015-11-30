@@ -3,12 +3,12 @@ package cells;
 import java.util.TreeSet;
 
 /**
- * Created by Zuzka on 23.11.2015.
+ * Trieda reprezentuje moznosti pre policko mriezky, pre kazde z cisel 0-8 si pamata, ci sa v nom mozu vyskytnut
  */
 public class Options {
     private TreeSet<Integer> options;
 
-    /** Konstruktor triedy Possibles vytvori mnozinu cisel 0-8 a reprezentuje, ze v policku mozu byt vsetky tieto cisla */
+    /** Konstruktor triedy Options vytvori mnozinu cisel 0-8 a reprezentuje, ze v policku mozu byt vsetky tieto cisla */
     public Options(){
         this.options = new TreeSet<>();
         for (int i=0; i<9; i++){
@@ -16,6 +16,7 @@ public class Options {
         }
     }
 
+    /** Funkcia prida kazdu cislicu zo vstupneho textu do moznosti (znaky ine ako 0-8 preskakuje) */
     public void changeOptions(String text){
         options.clear();
         for (Character c : text.toCharArray()){
@@ -25,7 +26,7 @@ public class Options {
         }
     }
 
-    /** Funkcia prida hodnotu value do moznosti policka */
+    /** Funkcia prida hodnotu value do moznosti policka, ak je medzi 0-8, inak ju ignoruje */
     public void addOption(int value){
         if ((value >= 0) && (value <= 8)){
             options.add(value);
@@ -39,7 +40,7 @@ public class Options {
         }
     }
 
-    /** Funkcia vrati mnozinu moznych hodnot pre policko */
+    /** Funkcia vrati mnozinu moznych hodnot ako mapu s true-false pre kazdu z hodnot 0-8 */
     public TreeSet<Integer> getOptions(){
         return this.options;
     }
@@ -68,6 +69,7 @@ public class Options {
         }
     }
 
+    /** Funkcia vrati textovu reprezentaciu moznosti vo formate jedneho usporiadaneho retazca cisel z 0-8 */
     @Override
     public String toString(){
         StringBuffer s = new StringBuffer();

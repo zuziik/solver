@@ -8,17 +8,19 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
 /**
- * Created by Zuzka on 24.11.2015.
+ * Trieda reprezentuje policko vystupnej mriezky.
  */
 public class OutputCell extends Cell {
-    Label text;
+    Label text;     //label na vypisovanie moznosti policka
 
+    /** Konstruktor dostane mriezku, poziciu policka, jeho farbu a textove pole na vypisovanie moznosti */
     public OutputCell(Grid grid, int row, int col, Color color, Label text) {
         super(grid, row, col, color);
         this.text = text;
         this.setupText();
     }
 
+    /** Funkcia nastavi vstupne policko moznostami z Options a nastavi jeho vyzor*/
     private void setupText(){
         text.setFont(new Font(10));
         text.setText(this.getOptions().toString());
@@ -27,11 +29,13 @@ public class OutputCell extends Cell {
         text.setBackground(Background.EMPTY);
     }
 
+    /** Funkcia vrati referenciu na prislusne vstupne policko (policko vstupnej mriezky na rovnakej pozicii) */
     @Override
     public Cell getMyInCell(){
         return this.getGrid().start.inGrid.getXY(this.getRow(), this.getCol());
     }
 
+    /** Funkcia upravi Options tohto policka a text vystupneho textoveho pola podla hodnot prislusneho vstupneho policka */
     @Override
     public void update(){
         System.out.println(this.getMyInCell().getOptions().toString());
@@ -39,8 +43,9 @@ public class OutputCell extends Cell {
         this.text.setText(this.getOptions().toString());
     }
 
+    /** Funkcia vrati textovu reprezentaciu policka vo formate Output Cell at {x, y}: {options}*/
     @Override
     public String toString(){
-        return "Output Cell at "+this.getRow()+", "+this.getCol();
+        return "Output Cell at "+this.getRow()+", "+this.getCol()+": "+this.getOptions().toString();
     }
 }

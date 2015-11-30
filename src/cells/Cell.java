@@ -7,27 +7,32 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.control.Label;
 
 /**
- * Created by Zuzka on 23.11.2015.
+ * Trieda reprezentuje policko mriezky. Na reprezentaciu vstupneho, resp. vystupneho policka ju rozsiruju triedy Input
+ * a Output Cell.
  */
 public class Cell extends Rectangle {
-    private int row;
-    private int col;
-    private Grid grid;
-    private Options options;
-    private final int size = 40;
-    private Color fill;
-    private Color outline = Color.BLACK;
+    private int row;                //cislo riadku v mriezke (0-8)
+    private int col;                //cislo stlpca v mriezke (0-8)
+    private Grid grid;              //referencia na mriezku, v ktorej sa policko nachadza
+    private Options options;        //moznosti pre toto policko - podmnozina 0-8 (ktore cisla sa tam mozu nachadzat)
+    private final int size = 40;    //sirka policka pri vykreslovani
+    private Color fill;             //vypln policka pri vykreslovani
+    private Color outline = Color.BLACK;    //oramovanie policka pri vykreslovani
     /** Referencie na susedne policka, aby sa dal nastavit pohyb sipkami - sprava sa ako toroid*/
     private Cell up, down, left, right;
 
-
+    /** Konstruktor dostane mriezku, poziciu v mriezke a farbu policka */
     public Cell(Grid grid, int row, int col, Color color){
         this.fill = color;
+
+        //graficke parametre nastavujeme priamo obdlzniku
         super.setWidth(size);
         super.setHeight(size);
         super.setFill(fill);
         super.setStroke(outline);
         super.setStrokeWidth(0.5);
+
+        //nastavenie mriezky, pozicie a moznosti pre cisla
         this.grid = grid;
         this.row = row;
         this.col = col;
@@ -133,15 +138,20 @@ public class Cell extends Rectangle {
         return this.options.oneOption();
     }
 
+    /** Funkcia vrati referenciu na vstupne policko k tomuto policku (t.j. samotne policko pre vstupne policko, resp.
+     * policko na rovnakej pozicii vo vstupnej mriezke pre vystupne policko */
     public Cell getMyInCell(){
-        return null;
+        return this;
     }
 
+    /** Funkcia vrati referenciu na vystupne policko k tomuto policku (t.j. samotne policko pre vystupne policko, resp.
+     * policko na rovnakej pozicii vo vystupnej mriezke pre vstupne policko */
     public Cell getMyOutCell(){
-        return null;
+        return this;
     }
 
+    /** Funkcia updatuje policko - prenesie cisla uvedene v textovom poli prislusneho policka do moznosti policka*/
     public void update(){
-
+        //TODO
     }
 }

@@ -13,5 +13,8 @@ public enum Variants {
     Windoku,
     Isosudoku,
     DisjointGroups,
-    Irregular
+    Irregular,
+    Antiknight,
+    Untouchable,
+    Antidiagonal
 }
