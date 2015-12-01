@@ -2,9 +2,7 @@ package grids;
 
 import cells.Cell;
 import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import sample.Main;
+import GUI.Main;
 
 /**
  * Created by Zuzka on 23.11.2015.
@@ -45,6 +43,22 @@ public abstract class Grid extends GridPane{
         for (Cell[] row : grid){
             for (Cell cell : row){
                 cell.update();
+            }
+        }
+    }
+
+    public void showPencilmarks(){
+        for (Cell[] row : grid){
+            for (Cell cell : row){
+                cell.showPencilmarks();
+            }
+        }
+    }
+
+    public void hidePencilmarks(){
+        for (Cell[] row : grid){
+            for (Cell cell : row){
+                cell.hidePencilmarks();
             }
         }
     }

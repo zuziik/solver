@@ -1,12 +1,10 @@
 package grids;
 
 import cells.Cell;
-import cells.InputCell;
 import cells.OutputCell;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
-import sample.Main;
+import GUI.Main;
 
 /**
  * Created by Zuzka on 23.11.2015.
@@ -30,7 +28,7 @@ public class OutputGrid extends Grid {
                 Color col = (((i / 3) + (j / 3)) % 2 == 0) ? Color.WHITE : Color.WHITESMOKE;
                 texts[i][j] = new Label();
                 grid[i][j] = new OutputCell(this,i,j,col,texts[i][j]);
-                texts[i][j].setText(grid[i][j].getMyInCell().getOptions().toString());
+                //texts[i][j].setText(grid[i][j].getMyInCell().getOptions().toString());
                 super.add(grid[i][j], i, j);
                 super.add(texts[i][j],i,j);
             }

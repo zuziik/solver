@@ -1,5 +1,6 @@
 package cells;
 
+import GUI.Mode;
 import grids.Grid;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -23,7 +24,7 @@ public class OutputCell extends Cell {
     /** Funkcia nastavi vstupne policko moznostami z Options a nastavi jeho vyzor*/
     private void setupText(){
         text.setFont(new Font(10));
-        text.setText(this.getOptions().toString());
+        //text.setText(this.getOptions().toString());
         text.setPrefWidth(this.getSize());
         text.setPrefHeight(this.getSize());
         text.setBackground(Background.EMPTY);
@@ -40,12 +41,38 @@ public class OutputCell extends Cell {
     public void update(){
         System.out.println(this.getMyInCell().getOptions().toString());
         this.setOptions(this.getMyInCell().getOptions());
-        this.text.setText(this.getOptions().toString());
+        if (getGrid().start.getMode().equals(Mode.GIVENS)){
+            if (oneOption()){
+                this.text.setText(this.getOptions().toString());
+            }
+            else{
+                this.text.setText("");
+            }
+        }
+        else{
+            this.text.setText(this.getOptions().toString());
+        }
+
     }
 
     /** Funkcia vrati textovu reprezentaciu policka vo formate Output Cell at {x, y}: {options}*/
     @Override
     public String toString(){
         return "Output Cell at "+this.getRow()+", "+this.getCol()+": "+this.getOptions().toString();
+    }
+
+    @Override
+    public void showPencilmarks(){
+        this.text.setText(this.getOptions().toString());
+    }
+
+    @Override
+    public void hidePencilmarks(){
+        if (this.getOptions().oneOption()){
+            this.text.setText(this.getOptions().getOnlyOption().toString());
+        }
+        else{
+            this.text.setText("");
+        }
     }
 }

@@ -152,6 +152,13 @@ public class Cell extends Rectangle {
 
     /** Funkcia updatuje policko - prenesie cisla uvedene v textovom poli prislusneho policka do moznosti policka*/
     public void update(){
-        //TODO
+    }
+
+    public void showPencilmarks(){
+
+    }
+
+    public void hidePencilmarks(){
+
     }
 }

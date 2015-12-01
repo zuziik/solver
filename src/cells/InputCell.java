@@ -1,4 +1,5 @@
 package cells;
+import GUI.Mode;
 import grids.Grid;
 import javafx.scene.control.*;
 import javafx.scene.layout.Background;
@@ -28,8 +29,8 @@ public class InputCell extends Cell {
     /** Funkcia nastavi vstupne policko moznostami z Options a nastavi jeho vyzor*/
     private void setupText(){
         text.setFont(new Font(10));
-        text.setText(this.getOptions().toString());
-
+        //text.setText(this.getOptions().toString());
+        text.setText("");
         //velkostou bude textove pole presne suhlasit s polickom, pricom bude mat priesvitne pozadie, teda neprekryje farbu
         text.setPrefWidth(this.getSize());
         text.setPrefHeight(this.getSize());
@@ -45,8 +46,17 @@ public class InputCell extends Cell {
     /** Funkcia zmeni Options policka podla obsahu textoveho pola*/
     @Override
     public void update(){
-        this.getOptions().changeOptions(this.text.getText());
-        //System.out.println(this.getOptions().toString());
+        if (this.getGrid().start.getMode().equals(Mode.GIVENS)){
+            if (this.text.getText().equals("")){
+                this.getOptions().refresh();
+            }
+            else{
+                this.getOptions().changeOptions(this.text.getText());
+            }
+        }
+        else{
+            this.getOptions().changeOptions(this.text.getText());
+        }
     }
 
     /** Funkcia vrati true, ak ma policko len jedinu moznost*/
@@ -63,5 +73,22 @@ public class InputCell extends Cell {
     @Override
     public String toString(){
         return "Input Cell at "+this.getRow()+", "+this.getCol()+": "+this.getOptions().toString();
+    }
+
+    @Override
+    public void showPencilmarks(){
+        this.update();
+        this.text.setText(this.getOptions().toString());
+    }
+
+    @Override
+    public void hidePencilmarks(){
+        this.update();
+        if (this.getOptions().oneOption()){
+            this.text.setText(this.getOptions().getOnlyOption().toString());
+        }
+        else{
+            this.text.setText("");
+        }
     }
 }

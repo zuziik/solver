@@ -2,9 +2,8 @@ package grids;
 
 import cells.Cell;
 import cells.InputCell;
-import javafx.scene.control.TextArea;
 import javafx.scene.paint.Color;
-import sample.Main;
+import GUI.Main;
 import javafx.scene.control.TextField;
 
 
@@ -30,7 +29,7 @@ public class InputGrid extends Grid  {
                 Color col = (((i / 3) + (j / 3)) % 2 == 0) ? Color.WHITE : Color.ANTIQUEWHITE;
                 texts[i][j] = new TextField();
                 grid[i][j] = new InputCell(this,i,j,col,texts[i][j]);
-                texts[i][j].setText(grid[i][j].getOptions().toString());
+                //texts[i][j].setText(grid[i][j].getOptions().toString()); //toto robim dvakrat
                 super.add(grid[i][j], i, j);
                 super.add(texts[i][j],i,j);
             }
@@ -45,6 +44,7 @@ public class InputGrid extends Grid  {
     public TextField[][] getTexts(){
         return this.texts;
     }
+
 
     public String toFile(boolean withPencilmarks){
         if (withPencilmarks){
