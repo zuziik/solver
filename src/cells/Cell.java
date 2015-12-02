@@ -161,4 +161,16 @@ public class Cell extends Rectangle {
     public void hidePencilmarks(){
 
     }
+
+    public TextField getTextField(){
+        return null;
+    }
+
+    public Label getLabel(){
+        return null;
+    }
+
+    public void filterText(){
+
+    }
 }

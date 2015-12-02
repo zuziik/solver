@@ -40,6 +40,7 @@ public abstract class Grid extends GridPane{
     }
 
     public void update(){
+        filterText();
         for (Cell[] row : grid){
             for (Cell cell : row){
                 cell.update();
@@ -61,5 +62,8 @@ public abstract class Grid extends GridPane{
                 cell.hidePencilmarks();
             }
         }
+    }
+
+    public void filterText(){
     }
 }

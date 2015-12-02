@@ -2,6 +2,7 @@ package cells;
 
 import GUI.Mode;
 import grids.Grid;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Background;
@@ -28,6 +29,8 @@ public class OutputCell extends Cell {
         text.setPrefWidth(this.getSize());
         text.setPrefHeight(this.getSize());
         text.setBackground(Background.EMPTY);
+        text.setAlignment(Pos.CENTER);
+
     }
 
     /** Funkcia vrati referenciu na prislusne vstupne policko (policko vstupnej mriezky na rovnakej pozicii) */
@@ -39,7 +42,7 @@ public class OutputCell extends Cell {
     /** Funkcia upravi Options tohto policka a text vystupneho textoveho pola podla hodnot prislusneho vstupneho policka */
     @Override
     public void update(){
-        System.out.println(this.getMyInCell().getOptions().toString());
+        System.out.println(getRow() + " " + getCol() + " " + this.getMyInCell().getOptions().toString());
         this.setOptions(this.getMyInCell().getOptions());
         if (getGrid().start.getMode().equals(Mode.GIVENS)){
             if (oneOption()){
@@ -52,7 +55,12 @@ public class OutputCell extends Cell {
         else{
             this.text.setText(this.getOptions().toString());
         }
-
+        if (this.oneOption()){
+            text.setFont(new Font(19));
+        }
+        else{
+            text.setFont(new Font(10));
+        }
     }
 
     /** Funkcia vrati textovu reprezentaciu policka vo formate Output Cell at {x, y}: {options}*/

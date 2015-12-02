@@ -1,5 +1,6 @@
 package grids;
 
+import GUI.Mode;
 import cells.Cell;
 import cells.InputCell;
 import javafx.scene.paint.Color;
@@ -29,9 +30,10 @@ public class InputGrid extends Grid  {
                 Color col = (((i / 3) + (j / 3)) % 2 == 0) ? Color.WHITE : Color.ANTIQUEWHITE;
                 texts[i][j] = new TextField();
                 grid[i][j] = new InputCell(this,i,j,col,texts[i][j]);
-                //texts[i][j].setText(grid[i][j].getOptions().toString()); //toto robim dvakrat
-                super.add(grid[i][j], i, j);
-                super.add(texts[i][j],i,j);
+
+                //POZOR: moja reprezentacia je grid[x][y] je x.riadok a y.stlpec, ale zobrazuje sa to naopak!!
+                super.add(grid[i][j], j, i);    //??
+                super.add(texts[i][j],j,i);     //do gridu to davame naopak?
             }
         }
         super.createGrid(grid);
@@ -46,8 +48,8 @@ public class InputGrid extends Grid  {
     }
 
 
-    public String toFile(boolean withPencilmarks){
-        if (withPencilmarks){
+    public String toFile(Mode mode){
+        if (mode.equals(Mode.PENCILMARKS)){
             return toFileWithPencilmarks();
         }
         else{
@@ -56,41 +58,40 @@ public class InputGrid extends Grid  {
     }
 
     private String toFileWithPencilmarks(){
-        //TODO
-        return null;
-    }
-
-    private String toFileWithGivens(){
         StringBuffer s = new StringBuffer();
-        //typ vypisu
-        s.append("GIVENS\n");
+        s.append("PENCILMARKS\n");
         for (int i=0; i<9; i++){
-            //horny hruby okraj
-            if (i % 3 == 0){
-                for (int k=0; k<13; k++){
-                    s.append("X");
-                }
-                s.append("\n");
-            }
             for (int j=0; j<9; j++){
-                if (j % 3 == 0){
-                    s.append("X");
-                }
-                if (grid[i][j].oneOption()){
-                    s.append(grid[i][j].getOnlyOption());
-                }
-                else{
-                    s.append(" ");
-                }
+                s.append(grid[i][j].getOptions().toString()+"\n");
             }
-            s.append("X");
-            s.append("\n");
-        }
-        for (int k=0; k<13; k++){
-            s.append("X");
         }
         return new String(s);
     }
 
+    private String toFileWithGivens(){
+        StringBuffer s = new StringBuffer();
+        s.append("GIVENS\n");
+        for (int i=0; i<9; i++){
+            for (int j=0; j<9; j++){
+                if (grid[i][j].oneOption()){
+                    s.append(grid[i][j].getOnlyOption());
+                }
+                else{
+                    s.append(".");
+                }
+            }
+            s.append("\n");
+        }
+        return new String(s);
+    }
+
+    @Override
+    public void filterText(){
+        for (Cell[] row : grid){
+            for (Cell cell : row){
+                cell.filterText();
+            }
+        }
+    }
 
 }

@@ -29,8 +29,8 @@ public class OutputGrid extends Grid {
                 texts[i][j] = new Label();
                 grid[i][j] = new OutputCell(this,i,j,col,texts[i][j]);
                 //texts[i][j].setText(grid[i][j].getMyInCell().getOptions().toString());
-                super.add(grid[i][j], i, j);
-                super.add(texts[i][j],i,j);
+                super.add(grid[i][j], j,i);
+                super.add(texts[i][j],j,i);
             }
         }
         super.createGrid(grid);

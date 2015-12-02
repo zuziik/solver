@@ -1,7 +1,12 @@
 package cells;
 import GUI.Mode;
 import grids.Grid;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -15,6 +20,7 @@ import java.text.NumberFormat;
  * Trieda reprezentuje policko vstupnej mriezky.
  */
 public class InputCell extends Cell {
+    InputCell cell = this;
     TextField text; //textove pole na zadavanie moznosti pre policko
 
     /** Konstruktor dostane mriezku, poziciu policka, jeho farbu a textove pole na zadavanie moznosti */
@@ -30,11 +36,47 @@ public class InputCell extends Cell {
     private void setupText(){
         text.setFont(new Font(10));
         //text.setText(this.getOptions().toString());
-        text.setText("");
         //velkostou bude textove pole presne suhlasit s polickom, pricom bude mat priesvitne pozadie, teda neprekryje farbu
         text.setPrefWidth(this.getSize());
         text.setPrefHeight(this.getSize());
         text.setBackground(Background.EMPTY);
+        text.setAlignment(Pos.CENTER);
+        text.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                filterText();
+            }
+        });
+        text.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+
+                if (event.getCode().equals(KeyCode.DOWN)) {
+                    cell.getDown().getTextField().requestFocus();
+                    filterText();
+                } else if (event.getCode().equals(KeyCode.UP)) {
+                    cell.getUp().getTextField().requestFocus();
+                    filterText();
+                } else if (event.getCode().equals(KeyCode.LEFT)) {
+                    cell.getLeft().getTextField().requestFocus();
+                    filterText();
+                } else if (event.getCode().equals(KeyCode.RIGHT)) {
+                    cell.getRight().getTextField().requestFocus();
+                    filterText();
+                }
+            }
+        });
+    }
+
+    @Override
+    public void filterText(){
+        StringBuffer s = new StringBuffer();
+        for (Integer i = 1; i <= 9; i++) {
+            if (text.getText().contains(i.toString())) {
+                s.append(i.toString());
+            }
+        }
+        text.setText(new String(s));
     }
 
     /** Funkcia vrati prislusne vystupne policko k tomuto policku (policko z vystupnej mriezky na tej istej pozicii)*/
@@ -57,6 +99,7 @@ public class InputCell extends Cell {
         else{
             this.getOptions().changeOptions(this.text.getText());
         }
+
     }
 
     /** Funkcia vrati true, ak ma policko len jedinu moznost*/
@@ -91,4 +134,10 @@ public class InputCell extends Cell {
             this.text.setText("");
         }
     }
+
+    @Override
+    public TextField getTextField(){
+        return this.text;
+    }
+
 }
